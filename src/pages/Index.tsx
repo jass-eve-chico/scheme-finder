@@ -3,36 +3,62 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight, Search, Shield, Zap, Users, TrendingUp, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
+
   const stats = [
-    { value: "500+", label: "Central & State Schemes" },
-    { value: "₹10L+", label: "Potential Benefits" },
-    { value: "Free", label: "Eligibility Check" },
+    { value: t("stats.schemesCount"), label: t("stats.schemesLabel") },
+    { value: t("stats.benefitsValue"), label: t("stats.benefitsLabel") },
+    { value: t("stats.freeValue"), label: t("stats.freeLabel") },
   ];
 
   const features = [
     {
       icon: Search,
-      title: "Smart Matching",
-      description: "AI-powered engine matches your profile with eligible schemes instantly.",
+      title: t("features.smartMatching"),
+      description: t("features.smartMatchingDesc"),
     },
     {
       icon: Shield,
-      title: "Verified Information",
-      description: "All scheme details sourced from official government portals.",
+      title: t("features.verifiedInfo"),
+      description: t("features.verifiedInfoDesc"),
     },
     {
       icon: Zap,
-      title: "Instant Results",
-      description: "Get personalized scheme recommendations in seconds, not hours.",
+      title: t("features.instantResults"),
+      description: t("features.instantResultsDesc"),
     },
   ];
 
   const steps = [
-    { step: "01", title: "Enter Your Details", description: "Fill in basic information about yourself - age, income, occupation, and more." },
-    { step: "02", title: "AI Analysis", description: "Our AI analyzes your profile against hundreds of government schemes." },
-    { step: "03", title: "Get Matched Schemes", description: "Receive a personalized list of schemes you're likely eligible for." },
+    {
+      step: "01",
+      title: t("howItWorks.step1Title"),
+      description: t("howItWorks.step1Desc"),
+    },
+    {
+      step: "02",
+      title: t("howItWorks.step2Title"),
+      description: t("howItWorks.step2Desc"),
+    },
+    {
+      step: "03",
+      title: t("howItWorks.step3Title"),
+      description: t("howItWorks.step3Desc"),
+    },
+  ];
+
+  const categories = [
+    { name: t("category.Housing"), filter: "Housing" },
+    { name: t("category.Healthcare"), filter: "Healthcare" },
+    { name: t("category.Education"), filter: "Education" },
+    { name: t("category.Agriculture"), filter: "Agriculture" },
+    { name: t("category.Business & Entrepreneurship"), filter: "Business & Entrepreneurship" },
+    { name: t("category.Insurance"), filter: "Insurance" },
+    { name: t("category.Employment & Skills"), filter: "Employment & Skills" },
+    { name: t("category.Women & Child Welfare"), filter: "Women & Child Welfare" },
   ];
 
   return (
@@ -51,37 +77,38 @@ const Index = () => {
             <div className="mx-auto max-w-3xl text-center animate-fade-in">
               <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 mb-6">
                 <TrendingUp className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary">Powered by Google Gemini AI</span>
+                <span className="text-sm font-medium text-primary">
+                  {t("hero.badge")}
+                </span>
               </div>
               
               <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-                Discover Government Schemes
-                <span className="text-gradient block mt-2">You Deserve</span>
+                {t("hero.title1")}
+                <span className="text-gradient block mt-2">{t("hero.title2")}</span>
               </h1>
               
               <p className="mt-6 text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto">
-                Millions of Indians miss out on government benefits simply because they don't know about them. 
-                Find schemes tailored to your profile in minutes.
+                {t("hero.subtitle")}
               </p>
               
               <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link to="/find-schemes">
                   <Button variant="hero" size="xl" className="group">
-                    Check Your Eligibility
+                    {t("hero.checkEligibility")}
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
                 <Link to="/schemes">
                   <Button variant="outline" size="xl">
-                    Browse All Schemes
+                    {t("hero.browseAll")}
                   </Button>
                 </Link>
               </div>
 
               {/* Stats */}
               <div className="mt-16 grid grid-cols-3 gap-8 border-t border-border pt-8">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="text-center">
+                {stats.map((stat, i) => (
+                  <div key={i} className="text-center">
                     <p className="font-display text-2xl font-bold text-foreground md:text-3xl">{stat.value}</p>
                     <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
                   </div>
@@ -96,17 +123,17 @@ const Index = () => {
           <div className="container px-4">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-                Why Use SchemeSetu?
+                {t("features.heading")}
               </h2>
               <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-                We simplify the complex world of government schemes so you don't miss out on what you deserve.
+                {t("features.subheading")}
               </p>
             </div>
             
             <div className="grid gap-8 md:grid-cols-3">
               {features.map((feature, index) => (
                 <div 
-                  key={feature.title} 
+                  key={index} 
                   className="rounded-2xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-elegant animate-slide-up"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -126,10 +153,10 @@ const Index = () => {
           <div className="container px-4">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-                How It Works
+                {t("howItWorks.heading")}
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Three simple steps to find your eligible schemes
+                {t("howItWorks.subheading")}
               </p>
             </div>
             
@@ -156,31 +183,22 @@ const Index = () => {
           <div className="container px-4">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-                Schemes Across Categories
+                {t("categories.heading")}
               </h2>
               <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-                From housing to healthcare, education to entrepreneurship – find schemes that matter to you.
+                {t("categories.subheading")}
               </p>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {[
-                { name: "Housing", filter: "Housing" },
-                { name: "Healthcare", filter: "Healthcare" },
-                { name: "Education", filter: "Education" },
-                { name: "Agriculture", filter: "Agriculture" },
-                { name: "Business", filter: "Business & Entrepreneurship" },
-                { name: "Insurance", filter: "Insurance" },
-                { name: "Employment", filter: "Employment & Skills" },
-                { name: "Women & Child", filter: "Women & Child Welfare" }
-              ].map((category) => (
+              {categories.map((category) => (
                 <Link 
-                  key={category.name}
+                  key={category.filter}
                   to={`/schemes?category=${encodeURIComponent(category.filter)}`}
                   className="flex items-center gap-2 rounded-lg border border-border bg-card p-4 text-sm font-medium text-card-foreground hover:border-primary/50 hover:shadow-sm transition-all cursor-pointer hover:bg-muted/50"
                 >
-                  <CheckCircle2 className="h-4 w-4 text-success" />
-                  {category.name}
+                  <CheckCircle2 className="h-4 w-4 text-success shrink-0" />
+                  <span className="truncate">{category.name}</span>
                 </Link>
               ))}
             </div>
@@ -190,20 +208,20 @@ const Index = () => {
         {/* CTA Section */}
         <section className="py-20">
           <div className="container px-4">
-            <div className="mx-auto max-w-3xl rounded-3xl bg-hero-gradient p-8 md:p-12 text-center text-primary-foreground">
+            <div className="mx-auto max-w-3xl rounded-3xl bg-hero-gradient p-8 md:p-12 text-center text-primary-foreground shadow-xl">
               <Users className="h-12 w-12 mx-auto mb-4 opacity-90" />
               <h2 className="font-display text-2xl font-bold md:text-3xl">
-                Don't Miss Out on Your Benefits
+                {t("cta.heading")}
               </h2>
               <p className="mt-4 text-primary-foreground/80 max-w-xl mx-auto">
-                Lakhs of rupees in government schemes go unclaimed every year. Check your eligibility today – it only takes 2 minutes.
+                {t("cta.description")}
               </p>
               <Link to="/find-schemes">
                 <Button 
                   size="xl" 
                   className="mt-8 bg-background text-primary hover:bg-background/90"
                 >
-                  Find Your Schemes Now
+                  {t("cta.button")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>

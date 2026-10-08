@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { Search, Heart } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+
 const Footer = () => {
-  return <footer className="border-t border-border bg-muted/30 mt-auto">
+  const { t } = useLanguage();
+
+  return (
+    <footer className="border-t border-border bg-muted/30 mt-auto">
       <div className="container px-4 py-12">
         <div className="grid gap-8 md:grid-cols-3">
           {/* Brand */}
@@ -15,22 +20,24 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Helping Indian citizens discover and access government schemes and benefits they deserve.
+              {t("footer.brandTagline")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-display font-semibold text-foreground">Quick Links</h3>
+            <h3 className="font-display font-semibold text-foreground">
+              {t("footer.quickLinks")}
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/schemes" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Browse All Schemes
+                  {t("footer.browseAllSchemes")}
                 </Link>
               </li>
               <li>
                 <Link to="/find-schemes" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Check Eligibility
+                  {t("footer.checkEligibility")}
                 </Link>
               </li>
             </ul>
@@ -38,20 +45,26 @@ const Footer = () => {
 
           {/* Disclaimer */}
           <div className="space-y-4">
-            <h3 className="font-display font-semibold text-foreground">Disclaimer</h3>
-            <p className="text-xs text-muted-foreground">
-              This is an informational tool. Please verify eligibility criteria on official government websites before applying. We do not guarantee approval of any scheme.
+            <h3 className="font-display font-semibold text-foreground">
+              {t("footer.disclaimer")}
+            </h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {t("footer.disclaimerText")}
             </p>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">© 2026 SchemeSetu. For informational purposes only.</p>
+          <p className="text-xs text-muted-foreground">
+            {t("footer.copyright")}
+          </p>
           <p className="flex items-center gap-1 text-xs text-muted-foreground">
-            Made with <Heart className="h-3 w-3 text-destructive fill-destructive" /> for every Indian citizen
+            {t("footer.madeWith")} <Heart className="h-3 w-3 text-destructive fill-destructive" /> {t("footer.forEveryCitizen")}
           </p>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
